@@ -226,31 +226,6 @@ RCT_EXPORT_METHOD(removeMemberFromGroup:(NSDictionary *)requestData andCallback:
   
 }
 
-RCT_EXPORT_METHOD(removeMemberFromGroup:(NSDictionary *)requestData andCallback:(RCTResponseSenderBlock)callback )
-{
-  
-  ALChannelService * alChannelService = [ALChannelService new];
-  
-  NSNumber * groupId = [requestData valueForKey:@"groupId"];
-  NSString * clientGroupId = [requestData valueForKey:@"clientGroupId"];
-  NSString * userId = [requestData valueForKey:@"userId"];
-  
-  [alChannelService removeMemberFromChannel:userId
-                              andChannelKey:groupId
-                         orClientChannelKey:clientGroupId
-                             withCompletion:^(NSError *error, ALAPIResponse *response) {
-                               
-                               if(error){
-                                 NSLog(@"error description %@", error.description);
-                                 return callback(@[ error.description ,[NSNull null]]);
-                               }else{
-                                 return callback(@[ [NSNull null],[self getJsonString:response.dictionary]]);
-                               }
-                               
-                             }];
-  
-}
-
 
 //======================================Unreadcounts ==============================================
 
